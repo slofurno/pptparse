@@ -1,0 +1,13 @@
+C:\dev\bgt\pptParse\pptParse\bin\Debug\pptParse.exe.config
+C:\dev\bgt\pptParse\pptParse\bin\Debug\pptParse.exe
+C:\dev\bgt\pptParse\pptParse\bin\Debug\pptParse.pdb
+C:\dev\bgt\pptParse\pptParse\obj\Debug\pptParse.csprojResolveAssemblyReference.cache
+C:\dev\bgt\pptParse\pptParse\obj\Debug\pptParse.exe
+C:\dev\bgt\pptParse\pptParse\obj\Debug\pptParse.pdb
+C:\dev\bgt\pptParse\pptParse\bin\Debug\Aspose.Slides.dll
+C:\dev\bgt\pptParse\pptParse\bin\Debug\PdfSharp.Charting.dll
+C:\dev\bgt\pptParse\pptParse\bin\Debug\PdfSharp.dll
+C:\dev\bgt\pptParse\pptParse\bin\Debug\PdfSharp.xml
+C:\dev\bgt\pptParse\pptParse\bin\Debug\PdfSharp.Charting.xml
+C:\dev\bgt\pptParse\pptParse\bin\Debug\de\PdfSharp.resources.dll
+C:\dev\bgt\pptParse\pptParse\bin\Debug\de\PdfSharp.Charting.resources.dll
