@@ -16,6 +16,8 @@ namespace pptParse
 {
   class Program
   {
+
+    
     static void Main(string[] args)
     {
 
@@ -181,7 +183,10 @@ namespace pptParse
 
     static void ParseDocument(Presentation presentation)
     {
+      //440, 330
 
+      double renderwidth = 380;
+      double renderheight = 285;
 
       var slides = presentation.Slides;
       var size = new System.Drawing.Size(960, 720);
@@ -191,14 +196,36 @@ namespace pptParse
 
         var slide = slides[i];
         var notes = slide.NotesSlide;
-        var note = "";
+        var note = "";          
 
         if (notes != null)
         {
-          note = notes.NotesTextFrame.Text;
+          var paragraphs = notes.NotesTextFrame.Paragraphs;
+          var bulletnumber = 1;
+          for (var j = 0; j < paragraphs.Count; j++)
+          {
+
+            if (j > 0)
+            {
+              note += "\r";
+            }
+
+            if (paragraphs[j].ParagraphFormat.Bullet.NumberedBulletStartWith>=0){
+
+              note += bulletnumber + ". ";
+              bulletnumber++;
+              
+            }
+
+            note += paragraphs[j].Text;
+
+          }
+
+
+            //note = notes.NotesTextFrame.Text;
         }
 
-
+        //580 435
         using (var ms = new MemoryStream())
         {
           var bmp = slide.GetThumbnail(size);
@@ -209,23 +236,34 @@ namespace pptParse
           PdfPage page = document.AddPage();
           XGraphics gfx = XGraphics.FromPdfPage(page);
 
-          XFont font = new XFont("Verdana", 16);
+          XFont font = new XFont("Verdana", 12);
 
 
           XImage image = XImage.FromGdiPlusImage(bmp);
+         
+          
+          double left = .5 * (page.Width - renderwidth);
+          double top = 60;
+          double texttop = renderheight + top + 40;
+          //double height = (width * image.PixelHeight) / image.PixelWidth;
+
+          var pen = new XPen(XColors.Black, 1);
 
 
-          double width = page.Width - 80;
-          double height = (width * image.PixelHeight) / image.PixelWidth;
+          var imagerect = new XRect(left, top, renderwidth, renderheight);
 
-          gfx.DrawImage(image, 40, 0, width, height);
+          
+          gfx.DrawImage(image, imagerect);
+          gfx.DrawRectangle(pen, imagerect);
 
 
-          var rect = new XRect(40, height + 40, page.Width - 40, page.Height - (height + 40));
+          var rect = new XRect(40, texttop, page.Width - 40, page.Height - (texttop));
           XTextFormatter tf = new XTextFormatter(gfx);
           tf.DrawString(note, font, XBrushes.Black, rect, XStringFormats.TopLeft);
 
-          document.Save("images/" + i + ".pdf");
+          string filename = i.ToString().PadLeft(3, '0') + ".pdf";
+
+          document.Save("images/" + filename);
         }
 
       }
